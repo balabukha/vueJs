@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<div class="section">
+    <input type="text" 
+            @input="name = $event.target.value"
+            :value="name"        
+    >
+    <input type="text" 
+            @input="surname = $event.target.value"
+            :value="surname"    
+    >
+    <!-- or you can write v-model:'surname'     -->
+
+    <template v-if='isShowName'>
+        <button @click="toggleName">
+            Click to HIDE
+        </button>
+    </template>
+    <template v-else='isShowName'>
+        <button @click="toggleName">
+            Click to show
+        </button>
+    </template>    
+
+
+    <h3 v-if="isShowName"> {{ name }} </h3>
+    <h3> {{ fullName() }} </h3>
+
+
+
+
+
+</div>
+
+<script>
+let vue = new Vue({
+    el: '.section',
+    data: {
+        name: '',
+        surname: '',
+        isShowName: true,
+    },
+    methods: {
+        toggleName(){
+            this.isShowName = !this.isShowName
+        },
+        fullName(){
+           return ( this.name + ' ' + this.surname)
+        }
+    }
+})
+
+
+</script>
+
+</body>
+</html>
