@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<div class="section">
+
+    <!-- progress bar  -->
+    <div class="progress-bar-warpepr">
+        <div class="pregress-bar-inner"></div>
+    </div>
+
+    <!-- main contect -->
+
+    <label v-for="item in items">
+        {{item.title}}
+        <input type="text" v-model="item.value">
+    </label>
+
+
+</div>
+
+<script>
+
+
+let vue = new Vue({
+    el: '.section',
+    data: {
+        items: [
+    {
+        title: 'Name',
+        value: '',
+        pattern: 2,
+    },
+    {
+        title: 'email',
+        value: '',
+        pattern: 3,
+    },
+    {
+        title: 'phone',
+        value: '',
+        pattern: 3,
+    },
+]
+    }
+})
+</script>
+
+</body>
+</html>

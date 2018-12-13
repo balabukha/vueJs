@@ -61,24 +61,16 @@ let vue = new Vue({
         
     },
     methods: {
-        handleClick(){
-            console.log('array => ', Math.floor(Math.random() * 10));
-            
+        handleClick(){     
             this.numbers = [...this.numbers, ...[Math.floor(Math.random() * 10)]]
-            console.log( this.numbers );
         },
         handleDeleteItem(indexToDelete){
-            console.log('e => ', indexToDelete);
             this.numbers = this.numbers.filter((item, i) => i !== indexToDelete);
-            
-            
         }
     },
     computed: {
-
     },
     watch: {
-
     }
 })
 </script>
