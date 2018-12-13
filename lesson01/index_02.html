@@ -12,8 +12,8 @@
 <body>
 <div class="section">
     <input type="text" 
-            @input="name = $event.target.value"
-            :value="name"        
+            v-on:input="name = $event.target.value"
+            v-bind:value="name"        
     >
     <input type="text" 
             @input="surname = $event.target.value"
@@ -34,33 +34,82 @@
 
 
     <h3 v-if="isShowName"> {{ name }} </h3>
-    <h3> {{ fullName() }} </h3>
+    <h3> {{ fullName1() }} </h3>
+    <h3> {{ fullName2 }} </h3>
 
+    <input type="text" 
+        @input="inputSale = $event.target.value" 
+        :value="inputSale"
+    >
+    <h4>Here is your sale: {{ saleCalculate }}</h4>
 
-
-
-
+    <input type="text"
+        @input="inputPromo = $event.target.value"
+        :value="inputPromo"
+    >
+    <h4>your promo: {{ promoOutput }}</h4>
 </div>
 
 <script>
+
+function getSale(str){
+    if (str === 'promo') return 20;
+    if (str === 'superPromo') return 50;
+}
+
+function calcPromo(inputPromo, callback) {
+    let promo = 
+    inputPromo === 'promo' ? 5 : 0;
+
+    setTimeout(
+        () => callback(promo),
+        1000
+    )
+    
+}
+
 let vue = new Vue({
     el: '.section',
     data: {
         name: '',
         surname: '',
         isShowName: true,
+        inputSale: '',
+        inputPromo: '',
+        promoOutput: ''
     },
     methods: {
         toggleName(){
+            console.log('button CLICK');
             this.isShowName = !this.isShowName
         },
-        fullName(){
-           return ( this.name + ' ' + this.surname)
+    // При использовании получается лишний RENDER
+        fullName1(){
+            console.log('fullName1 on METHODS')
+            return ( this.name + ' ' + this.surname)
+        }
+    },
+    // при использовании нет RERENDER
+    computed: {
+        fullName2(){
+            console.log('fullName2 on computed');
+            return this.name + this.surname
+        },
+        saleCalculate(){
+            console.log('inputSale: ', this.inputSale);
+            return getSale(this.inputSale)
+        }
+    },
+    watch: {
+        inputPromo(){
+            console.log('WATCH');
+            calcPromo(
+                this.inputPromo, 
+                (promoOutput)=>this.promoOutput = promoOutput
+            )
         }
     }
 })
-
-
 </script>
 
 </body>

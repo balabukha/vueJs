@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<div class="section">
+
+    <ul v-for="(item, i) in data">
+        <li>#{{ i }} name: {{item.name}}: email: {{ item.email }}</li>
+    </ul>
+
+    <button
+        @click="handleClick"
+    >
+    Generate number
+    </button>
+
+    <table>
+        <tr> 
+            <td>Number</td>
+            <td>Random Number</td> 
+        </tr>
+        <tr v-for="(number , i) in numbers"> 
+            <td>{{i}}</td>
+            <td>{{number}}</td> 
+            <td><button @click='handleDeleteItem(i)'>delete</button></td> 
+        </tr>  
+    </table>
+
+</div>
+
+<script>
+
+
+
+let vue = new Vue({
+    el: '.section',
+    data: {
+        numbers: [],
+        data: [
+            {
+                name: 'Andrey',
+                email: 'andrey@mail.com'
+            },
+            {
+                name: 'Sergio',
+                email: 'superBoyzz@mail.ru'
+            },
+            {
+                name: 'Dmitri',
+                email: 'awesomePeople@yandex.ru'
+            }
+        ],
+        
+    },
+    methods: {
+        handleClick(){
+            console.log('array => ', Math.floor(Math.random() * 10));
+            
+            this.numbers = [...this.numbers, ...[Math.floor(Math.random() * 10)]]
+            console.log( this.numbers );
+        },
+        handleDeleteItem(indexToDelete){
+            console.log('e => ', indexToDelete);
+            this.numbers = this.numbers.filter((item, i) => i !== indexToDelete);
+            
+            
+        }
+    },
+    computed: {
+
+    },
+    watch: {
+
+    }
+})
+</script>
+
+</body>
+</html>
