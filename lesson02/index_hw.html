@@ -1,121 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <!-- версия для разработки, отображает полезные предупреждения в консоли -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    .progress-bar-warpepr {
+      width: 300px;
+      height: 30px;
+      margin-bottom: 60px;
+      border: 1px dashed red;
+    }
 
-</head>
-<style>
-.progress-bar-warpepr{
-    width: 300px;
-    height: 30px;
-    margin-bottom: 60px;
-    border: 1px dashed red
-}
+    .pregress-bar-inner {
+      height: 30px;
+      width: 0%;
+      background-color: grey;
+      transition: 0.5s;
+    }
 
-.pregress-bar-inner{
-    height: 30px;
-    width: 0%;
-    background-color: grey;
-    transition: .5s;
-}
-
-.item{
-    margin-bottom: 30px;
-}
-
-</style>
-<body>
-<div class="section">
-
-    <!-- progress bar  -->
-    <div class="progress-bar-warpepr">
+    .item {
+      margin-bottom: 30px;
+    }
+  </style>
+  <body>
+    <div class="section">
+      <!-- progress bar -->
+      <div class="progress-bar-warpepr">
         <div class="pregress-bar-inner" :style="progressBarStatus"></div>
-    </div>
+      </div>
 
-    <!-- main content -->
+      <!-- main content -->
 
-    <div class="item"  v-for="(item , i) in items">
+      <div class="item" v-for="(item , i) in items">
         <label :key="item.title">
-            {{item.title}}:
-            status: {{ status[item.title] }}
-            <input type="text"
-                @input="item.value = $event.target.value"
-                :value="item.value"
-                @keyup="checkForErrors(item.title, i)"
-             >
+          {{ item.title }}: status: {{ status[item.title] }}
+          <input
+            type="text"
+            @input="item.value = $event.target.value"
+            :value="item.value"
+            @keyup="checkForErrors(item.title, i)"
+          />
         </label>
+      </div>
     </div>
+    <script>
+      let vue = new Vue({
+        el: '.section',
 
-
-
-</div>
-
-<script>
-
-
-let vue = new Vue({
-    el: '.section',
-
-    data: {
-        progressBarStatus: {
-        width: '0%'
-    },
-        status:{
+        data: {
+          progressBarStatus: {
+            width: '0%'
+          },
+          status: {
             Name: '',
             Email: '',
-            Phone: '',
+            Phone: ''
+          },
+          items: [
+            {
+              title: 'Name',
+              value: '',
+              pattern: 1
+            },
+            {
+              title: 'Email',
+              value: '',
+              pattern: 3
+            },
+            {
+              title: 'Phone',
+              value: '',
+              pattern: 3
+            }
+          ]
         },
-        items: [
-    {
-        title: 'Name',
-        value: '',
-        pattern: 1,
-    },
-    {
-        title: 'Email',
-        value: '',
-        pattern: 3,
-    },
-    {
-        title: 'Phone',
-        value: '',
-        pattern: 3,
-    },
-]
-    },
-    methods: {
-        checkForErrors(titleName, index) {
+        methods: {
+          checkForErrors(titleName, index) {
             console.log('checkForErrors', titleName);
-            
+
             if (this.items[index].value.length >= this.items[index].pattern) {
-                this.status[titleName] = 'success'
+              this.status[titleName] = 'success';
             } else {
-                this.status[titleName] = 'failure'
+              this.status[titleName] = 'failure';
             }
-        }
-    },
-    computed: {
-
-    },
-    beforeUpdate(){
-        let progressPoints = 0;
-        for(var key in this.status){
-            if(this.status[key] == 'success'){
-                progressPoints++
+          }
+        },
+        computed: {},
+        beforeUpdate() {
+          let progressPoints = 0;
+          for (var key in this.status) {
+            if (this.status[key] == 'success') {
+              progressPoints++;
             }
+          }
+          if (progressPoints === 0) this.progressBarStatus.width = '0%';
+          if (progressPoints === 1) this.progressBarStatus.width = '33%';
+          if (progressPoints === 2) this.progressBarStatus.width = '66%';
+          if (progressPoints === 3) this.progressBarStatus.width = '100%';
         }
-    if (progressPoints === 0 ) this.progressBarStatus.width = '0%'
-    if (progressPoints === 1 ) this.progressBarStatus.width = '33%'
-    if (progressPoints === 2 ) this.progressBarStatus.width = '66%'
-    if (progressPoints === 3 ) this.progressBarStatus.width = '100%'
-}
-})
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
