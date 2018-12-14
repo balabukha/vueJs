@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<div class="section">
+
+        <span>Email:</span>
+        <span>
+            <input type="email" :value="data.email" @input="data.email = $event.target.value" >
+        </span>
+        <br>
+        <span>Name:</span>
+        <span>
+            <input type="text" :value="data.name" @input="data.name = $event.target.value" >
+        </span>
+        <br>
+        <span>Surname:</span>
+        <span>
+            <input type="text" :value="data.surname" @input="data.surname = $event.target.value" >
+        </span>
+        <br>
+        <span>Age:</span>
+        <span>
+            <input type="number" :value="data.age" @input="data.age = $event.target.value" >
+        </span>
+        <br>
+        <button @click="isShowNewGuestForm = !isShowNewGuestForm" >
+            + Add new Guest
+        </button>
+        <div v-if="isShowNewGuestForm" class="new-guest">
+            <span>Name: </span>
+            <span>
+                <input type="text" :value="guestData.name" @input="guestData.name = $event.target.value" >
+            </span>
+            <br>
+
+            <span>Surname: </span>
+            <span>
+                <input type="text" :value="guestData.surname" @input="guestData.surname = $event.target.value" >
+            </span>
+            <button @click="addNewGuest">Add</button>
+        </div>
+
+        <div v-if="guests.length >= 1" class="guest-list">
+            <span>guests: </span>
+            <ul v-for="guest in guests">
+                <li>Name: {{guest.name}} | Surname: {{guest.surname}}</li>
+            </ul>     
+        </div>
+
+</div>
+
+<script>
+
+
+
+let vue = new Vue({
+    el: '.section',
+    data: {
+        isShowNewGuestForm: false,
+        data: {
+            email: '',
+            name: '',
+            surname: '',
+            age: '',
+        },
+        guests: [],
+        guestData: {
+            name: '',
+            surname: ''
+        }
+    },
+    methods: {
+        addNewGuest(){
+            if (this.guestData.name === '' || this.guestData.surname === '') return;
+
+            this.guests = [...this.guests, ...[this.guestData]];
+
+            this.guestData = {
+                name: '',
+                surname: ''
+            };
+            
+            this.isShowNewGuestForm = false
+
+        }
+    },
+    computed: {
+
+    },
+    watch: {
+
+    }
+})
+</script>
+
+</body>
+</html>

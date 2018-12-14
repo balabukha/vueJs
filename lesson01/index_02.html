@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<div class="section">
+    <input type="text" 
+            v-on:input="name = $event.target.value"
+            v-bind:value="name"        
+    >
+    <input type="text" 
+            @input="surname = $event.target.value"
+            :value="surname"    
+    >
+    <!-- or you can write v-model:'surname'     -->
+
+    <template v-if='isShowName'>
+        <button @click="toggleName">
+            Click to HIDE
+        </button>
+    </template>
+    <template v-else='isShowName'>
+        <button @click="toggleName">
+            Click to show
+        </button>
+    </template>    
+
+
+    <h3 v-if="isShowName"> {{ name }} </h3>
+    <h3> {{ fullName1() }} </h3>
+    <h3> {{ fullName2 }} </h3>
+
+    <input type="text" 
+        @input="inputSale = $event.target.value" 
+        :value="inputSale"
+    >
+    <h4>Here is your sale: {{ saleCalculate }}</h4>
+
+    <input type="text"
+        @input="inputPromo = $event.target.value"
+        :value="inputPromo"
+    >
+    <h4>your promo: {{ promoOutput }}</h4>
+</div>
+
+<script>
+
+function getSale(str){
+    if (str === 'promo') return 20;
+    if (str === 'superPromo') return 50;
+}
+
+function calcPromo(inputPromo, callback) {
+    let promo = 
+    inputPromo === 'promo' ? 5 : 0;
+
+    setTimeout(
+        () => callback(promo),
+        1000
+    )
+    
+}
+
+let vue = new Vue({
+    el: '.section',
+    data: {
+        name: '',
+        surname: '',
+        isShowName: true,
+        inputSale: '',
+        inputPromo: '',
+        promoOutput: ''
+    },
+    methods: {
+        toggleName(){
+            console.log('button CLICK');
+            this.isShowName = !this.isShowName
+        },
+    // При использовании получается лишний RENDER
+        fullName1(){
+            console.log('fullName1 on METHODS')
+            return ( this.name + ' ' + this.surname)
+        }
+    },
+    // при использовании нет RERENDER
+    computed: {
+        fullName2(){
+            console.log('fullName2 on computed');
+            return this.name + this.surname
+        },
+        saleCalculate(){
+            console.log('inputSale: ', this.inputSale);
+            return getSale(this.inputSale)
+        }
+    },
+    watch: {
+        inputPromo(){
+            console.log('WATCH');
+            calcPromo(
+                this.inputPromo, 
+                (promoOutput)=>this.promoOutput = promoOutput
+            )
+        }
+    }
+})
+</script>
+
+</body>
+</html>

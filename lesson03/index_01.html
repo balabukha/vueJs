@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    /* put here some styles */
+  </style>
+  <body>
+    <div class="section">
+      <!-- main content -->
+      <app-main></app-main>
+    </div>
+    <script>
+      Vue.component('app-main', {
+        template: `
+                                <div>{{ name }}</div>
+      
+                                `,
+        data() {
+          return {
+            name: 'Andrey'
+          };
+        }
+      });
+      new Vue({
+        el: '.section',
+
+        data: {},
+        methods: {},
+        computed: {}
+      });
+    </script>
+  </body>
+</html>
