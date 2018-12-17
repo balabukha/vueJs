@@ -16,7 +16,7 @@
         @changeData="onChangeData"
       ></InputField>
 
-      <button v-if="done === info.length" >Send Data</button>
+      <button :disabled="true">Send Data</button>
     </form>
     <div class="sub-wrapper" v-else>
       <h5>Some data if Submitted</h5>
@@ -25,45 +25,45 @@
 </template>
 
 <script>
-import InputField from './components/InputField';
+import InputField from "./components/InputField";
 
 export default {
   data() {
     return {
-      progressBarWidth: '0%',
+      progressBarWidth: "0%",
       done: 0,
       isSubmitted: false,
       status: {
-        Name: '',
-        Phone: '',
-        Email: '',
-        SomeField1: '',
-        SomeField2: ''
+        Name: "",
+        Phone: "",
+        Email: "",
+        SomeField1: "",
+        SomeField2: ""
       },
       info: [
         {
-          name: 'Name',
-          value: '',
+          name: "Name",
+          value: "",
           pattern: /^[a-zA-Z ]{2,30}$/
         },
         {
-          name: 'Phone',
-          value: '',
+          name: "Phone",
+          value: "",
           pattern: /^[0-9]{7,14}$/
         },
         {
-          name: 'Email',
-          value: '',
+          name: "Email",
+          value: "",
           pattern: /.+/
         },
         {
-          name: 'SomeField1',
-          value: '',
+          name: "SomeField1",
+          value: "",
           pattern: /.+/
         },
         {
-          name: 'SomeField2',
-          value: '',
+          name: "SomeField2",
+          value: "",
           pattern: /.+/
         }
       ]
@@ -73,9 +73,9 @@ export default {
     onChangeData({ event, index }) {
       this.info[index].value = event.target.value;
       if (this.info[index].pattern.test(event.target.value)) {
-        this.status[event.target.name] = 'YES';
+        this.status[event.target.name] = "YES";
       } else {
-        this.status[event.target.name] = 'NO';
+        this.status[event.target.name] = "NO";
       }
     }
   },
