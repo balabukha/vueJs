@@ -41,10 +41,7 @@ export default {
     }),
     ...mapGetters("cart", {
       appCartLength: "itemsLength"
-    }),
-    productsInCartLength() {
-      return 2;
-    }
+    })
   }
 };
 </script>

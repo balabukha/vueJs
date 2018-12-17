@@ -1,6 +1,19 @@
 <template>
-  <div>CART =>>></div>
+  <div>
+    <div v-for="(itemInCart) in itemsInCart" :key="itemInCart">{{itemInCart}}</div>
+  </div>
 </template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters("cart", {
+      itemsInCart: "items"
+    }),
+    ...mapGetters("products", {
+      allProducts: "items"
+    })
+  }
+};
 </script>
