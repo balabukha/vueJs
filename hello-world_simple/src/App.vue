@@ -8,11 +8,15 @@
       <InputField
         v-for="(item, index) in info"
         :key="index"
+        :index="index"
         :name="item.name"
         :value="item.value"
         :pattern="item.pattern"
+        :status="status"
         @changeData="onChangeData"
       ></InputField>
+
+      <button v-if="done === info.length" >Send Data</button>
     </form>
     <div class="sub-wrapper" v-else>
       <h5>Some data if Submitted</h5>
@@ -21,50 +25,63 @@
 </template>
 
 <script>
-import InputField from "./components/InputField";
+import InputField from './components/InputField';
 
 export default {
   data() {
     return {
-      progressBarWidth: "0%",
+      progressBarWidth: '0%',
       done: 0,
       isSubmitted: false,
+      status: {
+        Name: '',
+        Phone: '',
+        Email: '',
+        SomeField1: '',
+        SomeField2: ''
+      },
       info: [
         {
-          name: "Name",
-          value: "",
+          name: 'Name',
+          value: '',
           pattern: /^[a-zA-Z ]{2,30}$/
         },
         {
-          name: "Phone",
-          value: "",
+          name: 'Phone',
+          value: '',
           pattern: /^[0-9]{7,14}$/
         },
         {
-          name: "Email",
-          value: "",
+          name: 'Email',
+          value: '',
           pattern: /.+/
         },
         {
-          name: "Some Field 1",
-          value: "",
+          name: 'SomeField1',
+          value: '',
           pattern: /.+/
         },
         {
-          name: "Some Field 2",
-          value: "",
+          name: 'SomeField2',
+          value: '',
           pattern: /.+/
         }
       ]
     };
   },
   methods: {
-    onChangeData() {
-      console.log("onChangeData");
+    onChangeData({ event, index }) {
+      this.info[index].value = event.target.value;
+      if (this.info[index].pattern.test(event.target.value)) {
+        this.status[event.target.name] = 'YES';
+      } else {
+        this.status[event.target.name] = 'NO';
+      }
     }
   },
   components: {
     InputField
-  }
+  },
+  computed: {}
 };
 </script>
