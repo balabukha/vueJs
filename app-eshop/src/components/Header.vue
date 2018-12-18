@@ -1,7 +1,8 @@
 <template>
   <div>
     <h4>{{headerTitle}}</h4>
-    <div>products in cart: {{productsInCart}}</div>
+    <div v-if="productsInCart !== 0">products in cart: {{productsInCart}}</div>
+    <div v-else>Your cart is Empty</div>
   </div>
 </template>
 <script>

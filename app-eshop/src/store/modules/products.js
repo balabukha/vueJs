@@ -4,6 +4,11 @@ export default {
   getters: {
     items(state) {
       return state.items;
+    },
+    item: (state, getters) => () => {
+      // return getters.itemsMap[id];
+      console.log('--CHECKING: --', 'state: ', state, 'getters: ', getters);
+      return {};
     }
   },
   mutations: {},

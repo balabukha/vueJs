@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import ProductList from './components/ProductList.vue';
 import Product from './components/Product.vue';
+import Checkout from './components/Checkout.vue';
 import Cart from './components/Cart.vue';
 import E404 from './components/E404.vue';
 
@@ -16,17 +17,32 @@ const routes = [
   {
     name: 'products',
     path: '/products',
-    component: ProductList
+    component: ProductList,
+    beforeEnter(from, to, next) {
+      // store.dispatch('products/loadItems');
+      console.log('--CHECKING: --', this, from, to);
+      next();
+    }
   },
   {
     name: 'productById',
     path: '/products/:id',
-    component: Product
+    component: Product,
+    beforeEnter(from, to, next) {
+      // store.dispatch('products/loadItems');
+      console.log('--CHECKING: --', this, from, to);
+      next();
+    }
   },
   {
     name: 'cart',
     path: '/cart',
     component: Cart
+  },
+  {
+    name: 'checkout',
+    path: '/checkout',
+    component: Checkout
   },
   {
     name: '404',

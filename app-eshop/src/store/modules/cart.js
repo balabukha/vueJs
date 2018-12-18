@@ -13,6 +13,7 @@ export default {
   },
   mutations: {
     onAdd(state, id_product) {
+      console.log('--CART MUTATION: --', this);
       if (state.items.indexOf(id_product) === -1) {
         state.items.push(id_product);
       }
